@@ -2,7 +2,7 @@ package com.adrar.bibliotheque.model;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Table(name = "livre")
@@ -19,16 +19,41 @@ public class Livre {
     @Column(name = "description", nullable = false, length = 255)
     private String description;
 
-    @Column(name = "date_publication", nullable = false)
-    private Date date_publication;
+    @Column(name = "datePublication", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date datePublication;
+
+    @Column(name = "genre", length = 50)
+    private String genre;
+
+    @Column(name = "auteur", length = 50)
+    private String auteur;
+
+    @ManyToOne
+    @JoinColumn(name = "id_utilisateur")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "maison_edition_id")
+    private MaisonEdition maisonEdition;
 
     //Constructeur
     public Livre() {}
 
-    public Livre(String titre, String description, Date date_publication) {
+    public Livre(String titre, String description, Date datePublication) {
         this.titre = titre;
         this.description = description;
-        this.date_publication = date_publication;
+        this.datePublication = datePublication;
+    }
+
+    public Livre(String titre, String description, Date datePublication, String genre, String auteur, User user, MaisonEdition maisonEdition) {
+        this.titre = titre;
+        this.description = description;
+        this.datePublication = datePublication;
+        this.genre = genre;
+        this.auteur = auteur;
+        this.user = user;
+        this.maisonEdition = maisonEdition;
     }
 
     public int getId() {
@@ -55,12 +80,44 @@ public class Livre {
         this.description = description;
     }
 
-    public Date getDate_publication() {
-        return date_publication;
+    public Date getDatePublication() {
+        return datePublication;
     }
 
-    public void setDate_publication(Date date_publication) {
-        this.date_publication = date_publication;
+    public void setDatePublication(Date datePublication) {
+        this.datePublication = datePublication;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getAuteur() {
+        return auteur;
+    }
+
+    public void setAuteur(String auteur) {
+        this.auteur = auteur;
+    }
+
+    public MaisonEdition getMaisonEdition() {
+        return maisonEdition;
+    }
+
+    public void setMaisonEdition(MaisonEdition maisonEdition) {
+        this.maisonEdition = maisonEdition;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -69,7 +126,11 @@ public class Livre {
                 "id=" + id +
                 ", titre='" + titre + '\'' +
                 ", description='" + description + '\'' +
-                ", date_publication=" + date_publication +
+                ", datePublication=" + datePublication +
+                ", genre='" + genre + '\'' +
+                ", auteur='" + auteur + '\'' +
+                ", user='" + user + '\'' +
+                ", maisonEdition='" + maisonEdition + '\'' +
                 '}';
     }
 }
