@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MaisonRepository extends CrudRepository<MaisonEdition, Integer> {
+public interface MaisonEditionRepository extends CrudRepository<MaisonEdition, Integer> {
 }
