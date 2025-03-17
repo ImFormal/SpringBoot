@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class LivreDtoWrapper {
     public static LivreDTO toDto(Livre livre) {
-        return new LivreDTO(livre.getId(), livre.getTitre(), livre.getAuteur(), livre.getDatePublication(), livre.getUser().getEmail(), livre.getMaisonEdition().getLibele());
+        return new LivreDTO(livre.getId(), livre.getTitre(), livre.getAuteur(), livre.getDatePublication(), livre.getUser().getEmail(), livre.getMaisonEdition().getLibele(), livre.getGenres());
     }
 }

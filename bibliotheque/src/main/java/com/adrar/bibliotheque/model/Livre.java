@@ -3,6 +3,7 @@ package com.adrar.bibliotheque.model;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "livre")
@@ -23,9 +24,6 @@ public class Livre {
     @Temporal(TemporalType.DATE)
     private Date datePublication;
 
-    @Column(name = "genre", length = 50)
-    private String genre;
-
     @Column(name = "auteur", length = 50)
     private String auteur;
 
@@ -37,6 +35,10 @@ public class Livre {
     @JoinColumn(name = "maison_edition_id")
     private MaisonEdition maisonEdition;
 
+    @ManyToMany
+    @JoinTable(name = "livre_genre")
+    private List<Genre> genres;
+
     //Constructeur
     public Livre() {}
 
@@ -46,11 +48,11 @@ public class Livre {
         this.datePublication = datePublication;
     }
 
-    public Livre(String titre, String description, Date datePublication, String genre, String auteur, User user, MaisonEdition maisonEdition) {
+    public Livre(String titre, String description, Date datePublication, List<Genre> genres, String auteur, User user, MaisonEdition maisonEdition) {
         this.titre = titre;
         this.description = description;
         this.datePublication = datePublication;
-        this.genre = genre;
+        this.genres = genres;
         this.auteur = auteur;
         this.user = user;
         this.maisonEdition = maisonEdition;
@@ -87,15 +89,6 @@ public class Livre {
     public void setDatePublication(Date datePublication) {
         this.datePublication = datePublication;
     }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
     public String getAuteur() {
         return auteur;
     }
@@ -120,6 +113,14 @@ public class Livre {
         this.user = user;
     }
 
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
     @Override
     public String toString() {
         return "Livre{" +
@@ -127,10 +128,10 @@ public class Livre {
                 ", titre='" + titre + '\'' +
                 ", description='" + description + '\'' +
                 ", datePublication=" + datePublication +
-                ", genre='" + genre + '\'' +
                 ", auteur='" + auteur + '\'' +
-                ", user='" + user + '\'' +
-                ", maisonEdition='" + maisonEdition + '\'' +
+                ", user=" + user +
+                ", maisonEdition=" + maisonEdition +
+                ", genres=" + genres +
                 '}';
     }
 }
