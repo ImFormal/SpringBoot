@@ -1,6 +1,8 @@
 package com.adrar.bibliotheque.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +20,8 @@ public class Genre {
     private int id;
 
     @Column(name = "name", nullable = false, length = 50)
+    @NotBlank(message = "le nom doit être renseigné")
+    @Size(min = 3, message = "Le nom doit posséder au moins 3 caractères")
     private String name;
 
 

@@ -1,5 +1,7 @@
 package com.adrar.bibliotheque.service;
 
+import com.adrar.bibliotheque.exception.AddLivreAlreadyExistsException;
+import com.adrar.bibliotheque.exception.AddMaisonEditionAlreadyExistsException;
 import com.adrar.bibliotheque.model.MaisonEdition;
 import com.adrar.bibliotheque.repository.MaisonEditionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,4 +28,10 @@ public class MaisonEditionService {
         return Optional.of(maisonEditionRepository.findById(id).orElse(new MaisonEdition()));
     }
 
+    public MaisonEdition addMaisonEdition(MaisonEdition maisonEdition) {
+        if(maisonEditionRepository.findByLibele(maisonEdition.getLibele())){
+            throw new AddMaisonEditionAlreadyExistsException();
+        }
+        return maisonEditionRepository.save(maisonEdition);
+    }
 }

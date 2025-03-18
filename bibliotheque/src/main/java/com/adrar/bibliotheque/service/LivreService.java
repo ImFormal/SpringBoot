@@ -2,7 +2,6 @@ package com.adrar.bibliotheque.service;
 
 import com.adrar.bibliotheque.dto.LivreDTO;
 import com.adrar.bibliotheque.exception.AddLivreAlreadyExistsException;
-import com.adrar.bibliotheque.exception.LivreNotFoundException;
 import com.adrar.bibliotheque.exception.UpdateNotFoundException;
 import com.adrar.bibliotheque.model.Livre;
 import com.adrar.bibliotheque.repository.LivreRepository;

@@ -1,6 +1,9 @@
 package com.adrar.bibliotheque.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
 import java.util.List;
@@ -15,9 +18,13 @@ public class Livre {
     private int id;
 
     @Column(name = "titre", nullable = false, unique = true, length = 50)
+    @NotBlank(message = "le titre doit être renseigné")
+    @Size(min = 3, message = "Le titre doit posséder au moins 3 caractères")
     private String titre;
 
     @Column(name = "description", nullable = false, length = 255)
+    @NotBlank(message = "la description doit être renseignée")
+    @Size(min = 5, message = "Le Nom doit posséder au moins 5 caractères")
     private String description;
 
     @Column(name = "datePublication", nullable = false)
@@ -25,6 +32,7 @@ public class Livre {
     private Date datePublication;
 
     @Column(name = "auteur", length = 50)
+    @NotBlank(message = "l'auteur doit être renseigné")
     private String auteur;
 
     @ManyToOne
@@ -36,7 +44,11 @@ public class Livre {
     private MaisonEdition maisonEdition;
 
     @ManyToMany
-    @JoinTable(name = "livre_genre")
+    @JoinTable(
+            name = "livre_genre",
+            joinColumns = @JoinColumn(name = "livre_id"),
+            inverseJoinColumns = @JoinColumn(name = "genres_id")
+    )
     private List<Genre> genres;
 
     //Constructeur
@@ -135,3 +147,6 @@ public class Livre {
                 '}';
     }
 }
+
+
+//Livre : date min 1800 et max 2025,
