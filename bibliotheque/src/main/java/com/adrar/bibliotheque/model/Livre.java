@@ -1,5 +1,6 @@
 package com.adrar.bibliotheque.model;
 
+import com.adrar.bibliotheque.validation.PastOrPresentYear;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -29,6 +30,9 @@ public class Livre {
 
     @Column(name = "datePublication", nullable = false)
     @Temporal(TemporalType.DATE)
+    @PastOrPresentYear(
+            min= 1500,
+            message= "La date de publication doit être comprise entre 1500 et l'année courante")
     private Date datePublication;
 
     @Column(name = "auteur", length = 50)
